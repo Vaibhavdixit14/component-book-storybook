@@ -58,3 +58,29 @@ npm install github:zujonow/component-book#vX.Y.Z
 
 When `component-book` cuts a new release, bump the tag in `package.json` and `npm install`.
 
+## Deploying (Vercel, local prebuilt)
+
+`component-book` is a **private** repo, so Vercel's cloud build can't `npm install` it
+(no access to private code without a secret). Instead we **build locally** — where you
+already have repo access — and upload the prebuilt output. This means deploys are run
+by hand (not auto-on-push), which is fine since the gallery only changes on a new
+`component-book` release.
+
+**One-time setup (already done):** `vercel login` + project link (`.vercel/`).
+**One-time in the dashboard:** Settings → Deployment Protection → **Vercel Authentication → Disabled**
+(so the public URL needs no login to view).
+
+**To publish / update:**
+
+```bash
+npx vercel build --prod          # builds Storybook locally into .vercel/output
+npx vercel deploy --prebuilt --prod   # uploads it; prints the production URL
+```
+
+If `component-book` released a new version first: bump its tag in `package.json`,
+`npm install`, then run the two commands above.
+
+Live URL (stable across deploys): https://component-book-storybook.vercel.app
+
+> Tip: `npm i -g vercel` lets you drop the `npx` prefix.
+
