@@ -21,6 +21,7 @@ export default {
     disabled: false,
     error: false,
     mandatory: false,
+    check: true, // show the tick (checkmark) on the selected option, like the dashboard
   },
   render: (args) => {
     const [value, setValue] = useState(null);
