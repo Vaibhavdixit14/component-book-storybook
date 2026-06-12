@@ -4,7 +4,6 @@ export default {
   title: "Media/PlayerComponent",
   component: PlayerComponent,
   tags: ["autodocs"],
-  parameters: { chromatic: { disableSnapshot: true } },
   argTypes: {
     duration: { control: "number" },
     onPlayPause: { action: "play/pause" },

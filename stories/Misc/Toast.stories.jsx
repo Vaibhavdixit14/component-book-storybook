@@ -7,7 +7,7 @@ import { toastMessage, ButtonComponent } from "component-book";
 export default {
   title: "Misc/toastMessage",
   tags: ["autodocs"],
-  parameters: { controls: { disable: true }, chromatic: { disableSnapshot: true } },
+  parameters: { controls: { disable: true } },
   render: () => (
     <div className="flex gap-3 p-4">
       <ButtonComponent
