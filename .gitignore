@@ -5,3 +5,4 @@ build-storybook.log
 *.log
 .DS_Store
 .env*.local
+.vercel
