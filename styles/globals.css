@@ -1,0 +1,16 @@
+/*
+ * Story-scaffolding Tailwind root.
+ *
+ * component-book's own styles (tokens + component utilities) are imported
+ * directly via JS in .storybook/preview.jsx — that mirrors how the dashboard
+ * loads them and lets the library's relative `@import url(...)` lines resolve
+ * in their own folder.
+ *
+ * This file exists only so utility classes used in STORY layout wrappers
+ * (flex / grid / gap / p-4 / text-xs, etc.) get generated. Keep story-wrapper
+ * styling to standard Tailwind utilities; the components themselves are already
+ * styled by component-book/styles.
+ */
+@import "tailwindcss";
+
+@source "../stories/**/*.{js,jsx}";
