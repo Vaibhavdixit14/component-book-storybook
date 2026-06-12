@@ -2,6 +2,5 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "npm run build-storybook",
   "outputDirectory": "storybook-static",
-  "framework": null,
-  "installCommand": "git config --global url.\"https://$COMPONENT_BOOK_TOKEN@github.com/\".insteadOf \"ssh://git@github.com/\" && npm install"
+  "framework": null
 }
