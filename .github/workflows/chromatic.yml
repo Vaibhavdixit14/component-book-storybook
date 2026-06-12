@@ -1,0 +1,30 @@
+name: Chromatic
+
+# Publishes Storybook to Chromatic on every push so designers always have a
+# shareable, up-to-date URL (and visual-regression diffs on PRs).
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  chromatic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Chromatic needs full git history for baselines
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Publish to Chromatic
+        uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          # build-storybook is already defined in package.json
+          autoAcceptChanges: main # auto-accept baselines on main; PRs still diff
