@@ -15,7 +15,6 @@ Other scripts:
 
 ```bash
 npm run build-storybook   # static build → storybook-static/
-npm run chromatic         # publish to Chromatic (needs CHROMATIC_PROJECT_TOKEN)
 ```
 
 ## How it's wired
@@ -59,13 +58,3 @@ npm install github:zujonow/component-book#vX.Y.Z
 
 When `component-book` cuts a new release, bump the tag in `package.json` and `npm install`.
 
-## Hosting (Chromatic)
-
-`.github/workflows/chromatic.yml` publishes Storybook on every push and returns a shareable URL.
-
-**One-time setup (org owner):**
-1. Create the GitHub repo `zujonow/component-book-storybook` and push this project.
-2. Create a Chromatic project linked to that repo; copy its project token.
-3. Add it as the repo secret **`CHROMATIC_PROJECT_TOKEN`**.
-
-After that, the "latest on `main`" Chromatic link is the URL to share with designers.
