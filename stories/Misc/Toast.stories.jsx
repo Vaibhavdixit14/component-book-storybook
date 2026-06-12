@@ -1,4 +1,7 @@
 import { ToastContainer } from "react-toastify";
+// Base CSS provides container positioning/animation; the kill-UI props on
+// ToastContainer below strip the default background so only the component-book
+// toast styling shows.
 import "react-toastify/dist/ReactToastify.css";
 import { toastMessage, ButtonComponent } from "component-book";
 
@@ -24,7 +27,19 @@ export default {
         type="secondary"
         onClick={() => toastMessage({ type: "warning", message: "Check your input." })}
       />
-      <ToastContainer position="bottom-right" transition={undefined} />
+      {/* Match the dashboard: strip react-toastify's default UI so only the
+          component-book toast styling shows (no extra background/shadow). */}
+      <ToastContainer
+        position="top-center"
+        toastClassName={() => "bg-transparent p-0 shadow-none border-none"}
+        bodyClassName={() => "p-0 m-0"}
+        className="bg-transparent!"
+        closeButton={false}
+        icon={false}
+        hideProgressBar
+        newestOnTop
+        limit={3}
+      />
     </div>
   ),
 };
