@@ -25,7 +25,13 @@ export default {
           items={dropdownItems}
           selectedIds={selectedIds}
           onSelect={(item) => setSelectedIds([item.id])}
-          trigger={<ButtonComponent label="Open menu" type="secondary" />}
+          trigger={
+            <ButtonComponent
+              label="Open menu"
+              type="secondary"
+              onClick={() => setOpen((o) => !o)}
+            />
+          }
         />
       </div>
     );
