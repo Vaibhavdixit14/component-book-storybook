@@ -6,7 +6,7 @@ import { create } from "storybook/theming";
 // `brandImage: logo` below.
 const theme = create({
   base: "dark",
-  brandTitle: "component-book",
+  brandTitle: "VideoSDK component-book",
   brandUrl: "https://github.com/zujonow/component-book",
   brandTarget: "_blank",
 
