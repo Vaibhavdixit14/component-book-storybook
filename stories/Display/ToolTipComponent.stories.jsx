@@ -1,4 +1,4 @@
-import { ToolTipComponent } from "component-book";
+import { ToolTipComponent, Button } from "component-book";
 
 export default {
   title: "Display/ToolTipComponent",
@@ -14,14 +14,12 @@ export default {
     content: "Press ⌘K to open the command palette.",
     side: "top",
   },
-  // Trigger must forward Radix's hover/focus props, so use a native element
-  // (ButtonComponent doesn't spread arbitrary props onto its <button>).
+  // The shadcn Button forwards Radix's hover/focus props (TooltipTrigger uses
+  // asChild), so it works directly as the tooltip trigger.
   render: (args) => (
     <div className="p-16">
       <ToolTipComponent {...args}>
-        <button className="rounded-2xl border border-white/15 px-3 py-1.5 text-sm text-white hover:bg-white/5">
-          Hover me
-        </button>
+        <Button variant="outlined">Hover me</Button>
       </ToolTipComponent>
     </div>
   ),
