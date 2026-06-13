@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SideBarComponent, ButtonComponent } from "component-book";
+import { SideBarComponent, Button } from "component-book";
 
 export default {
   title: "Overlays/SideBarComponent",
@@ -19,15 +19,15 @@ export default {
     const [open, setOpen] = useState(false);
     return (
       <div className="p-4">
-        <ButtonComponent label="Open sidebar" onClick={() => setOpen(true)} />
+        <Button onClick={() => setOpen(true)}>Open sidebar</Button>
         <SideBarComponent
           {...args}
           open={open}
           onOpenChange={setOpen}
           footer={() => (
             <div className="flex justify-end gap-2">
-              <ButtonComponent label="Cancel" type="secondary" onClick={() => setOpen(false)} />
-              <ButtonComponent label="Save" onClick={() => setOpen(false)} />
+              <Button variant="secondary" onClick={() => setOpen(false)}>Cancel</Button>
+              <Button onClick={() => setOpen(false)}>Save</Button>
             </div>
           )}
         >
