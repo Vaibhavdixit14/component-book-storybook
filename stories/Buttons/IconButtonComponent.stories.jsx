@@ -1,6 +1,8 @@
-import { IconButtonComponent } from "component-book";
+import { Button } from "component-book";
 import { icons } from "../_shared/fixtures.jsx";
 
+// Icon-only buttons are the same `Button` with an `icon-*` size and an icon
+// element as children (the old standalone IconButtonComponent was removed).
 const VARIANTS = [
   "primary",
   "secondary",
@@ -10,21 +12,26 @@ const VARIANTS = [
   "text-destructive",
   "outlined-destructive",
 ];
-const SIZES = ["sm", "md", "lg"];
+const SIZES = ["icon-sm", "icon", "icon-lg"];
+
+const Settings = icons.Settings;
 
 export default {
-  title: "Buttons/IconButtonComponent",
-  component: IconButtonComponent,
+  title: "Buttons/Button (icon)",
+  component: Button,
   tags: ["autodocs"],
   argTypes: {
     variant: { control: "select", options: VARIANTS },
     size: { control: "select", options: SIZES },
     disabled: { control: "boolean" },
-    icon: { control: false },
     onClick: { action: "clicked" },
   },
-  args: { variant: "primary", size: "md", disabled: false },
-  render: (args) => <IconButtonComponent {...args} icon={icons.Settings} />,
+  args: { variant: "primary", size: "icon", disabled: false },
+  render: (args) => (
+    <Button {...args}>
+      <Settings />
+    </Button>
+  ),
 };
 
 export const Default = {};
@@ -39,9 +46,13 @@ export const AllVariants = {
           <span className="text-xs uppercase tracking-wide text-neutral-400">{variant}</span>
           <div className="flex items-center gap-3">
             {SIZES.map((size) => (
-              <IconButtonComponent key={size} variant={variant} size={size} icon={icons.Settings} />
+              <Button key={size} variant={variant} size={size}>
+                <Settings />
+              </Button>
             ))}
-            <IconButtonComponent variant={variant} icon={icons.Settings} disabled />
+            <Button variant={variant} size="icon" disabled>
+              <Settings />
+            </Button>
           </div>
         </div>
       ))}
