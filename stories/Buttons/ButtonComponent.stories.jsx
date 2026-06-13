@@ -1,63 +1,74 @@
-import { ButtonComponent } from "component-book";
+import { Button } from "component-book";
 
-const TYPES = [
+// component-book's button is now the shadcn-style `Button`:
+// `variant` (not `type`), `children` (not `label`), `loading`/`loadingText`
+// (not `isLoading`/`loadingLabel`), plus `asChild` for use as a Radix trigger.
+const VARIANTS = [
   "primary",
   "secondary",
   "destructive",
   "text",
+  "text-destructive",
   "outlined",
   "outlined-destructive",
+  "outlined-dashed",
   "link",
 ];
-const SIZES = ["xs", "small", "default", "large"];
+const SIZES = ["xs", "sm", "default", "lg"];
 
 export default {
-  title: "Buttons/ButtonComponent",
-  component: ButtonComponent,
+  title: "Buttons/Button",
+  component: Button,
   tags: ["autodocs"],
   argTypes: {
-    type: { control: "select", options: TYPES },
+    variant: { control: "select", options: VARIANTS },
     size: { control: "select", options: SIZES },
-    label: { control: "text" },
+    children: { control: "text" },
     disabled: { control: "boolean" },
-    isLoading: { control: "boolean" },
-    isIconButton: { control: "boolean" },
-    loadingLabel: { control: "text" },
+    loading: { control: "boolean" },
+    loadingText: { control: "text" },
     onClick: { action: "clicked" },
   },
   args: {
-    label: "Button",
-    type: "primary",
+    children: "Button",
+    variant: "primary",
     size: "default",
     disabled: false,
-    isLoading: false,
+    loading: false,
   },
+  render: (args) => <Button {...args} />,
 };
 
 export const Default = {};
 
 export const Disabled = { args: { disabled: true } };
 
-export const Loading = { args: { isLoading: true, loadingLabel: "Saving..." } };
+export const Loading = { args: { loading: true, loadingText: "Saving..." } };
 
-export const Destructive = { args: { type: "destructive", label: "Delete" } };
+export const Destructive = { args: { variant: "destructive", children: "Delete" } };
 
-/** Every type × size, plus disabled and loading rows — the full state matrix. */
+/** Every variant × size, plus disabled and loading — the full state matrix. */
 export const AllStates = {
   parameters: { controls: { disable: true } },
   render: () => (
     <div className="flex flex-col gap-6 p-4">
-      {TYPES.map((type) => (
-        <div key={type} className="flex flex-col gap-2">
+      {VARIANTS.map((variant) => (
+        <div key={variant} className="flex flex-col gap-2">
           <span className="text-xs uppercase tracking-wide text-neutral-400">
-            {type}
+            {variant}
           </span>
           <div className="flex flex-wrap items-center gap-3">
             {SIZES.map((size) => (
-              <ButtonComponent key={size} type={type} size={size} label={size} />
+              <Button key={size} variant={variant} size={size}>
+                {size}
+              </Button>
             ))}
-            <ButtonComponent type={type} label="disabled" disabled />
-            <ButtonComponent type={type} label="loading" isLoading />
+            <Button variant={variant} disabled>
+              disabled
+            </Button>
+            <Button variant={variant} loading loadingText="loading">
+              loading
+            </Button>
           </div>
         </div>
       ))}
