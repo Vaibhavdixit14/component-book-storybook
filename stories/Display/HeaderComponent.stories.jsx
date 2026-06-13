@@ -1,4 +1,4 @@
-import { HeaderComponent, ButtonComponent, NewBadgeComponent } from "component-book";
+import { HeaderComponent, Button, NewBadgeComponent } from "component-book";
 
 export default {
   title: "Display/HeaderComponent",
@@ -28,7 +28,7 @@ export default {
         rightContent={
           <div className="flex items-center gap-2">
             <NewBadgeComponent label="Beta" />
-            <ButtonComponent label="Buy number" type="primary" />
+            <Button variant="primary">Buy number</Button>
           </div>
         }
       />
