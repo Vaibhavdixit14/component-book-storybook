@@ -8,7 +8,7 @@ export default {
   argTypes: {
     title: { control: "text" },
     message: { control: "text" },
-    // `buttons` is an array of ButtonComponent configs ({ label, type, onClick, ... }).
+    // `buttons` is an array of button configs ({ label, type, onClick, ... }).
     // Edit it live in the Controls panel — add/remove/change buttons.
     buttons: { control: "object" },
     Icon: { control: false },
