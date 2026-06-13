@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ActionConfirmModal, ButtonComponent } from "component-book";
+import { ActionConfirmModal, Button } from "component-book";
 
 export default {
   title: "Overlays/ActionConfirmModal",
@@ -23,7 +23,7 @@ export default {
     const [open, setOpen] = useState(false);
     return (
       <div className="p-4">
-        <ButtonComponent label="Delete..." type="destructive" onClick={() => setOpen(true)} />
+        <Button variant="destructive" onClick={() => setOpen(true)}>Delete...</Button>
         <ActionConfirmModal
           {...args}
           open={open}
