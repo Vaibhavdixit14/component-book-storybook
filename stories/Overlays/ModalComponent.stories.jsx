@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ModalComponent, ButtonComponent } from "component-book";
+import { ModalComponent, Button } from "component-book";
 
 export default {
   title: "Overlays/ModalComponent",
@@ -20,7 +20,7 @@ export default {
     const [open, setOpen] = useState(false);
     return (
       <div className="p-4">
-        <ButtonComponent label="Open modal" onClick={() => setOpen(true)} />
+        <Button onClick={() => setOpen(true)}>Open modal</Button>
         <ModalComponent
           {...args}
           open={open}
