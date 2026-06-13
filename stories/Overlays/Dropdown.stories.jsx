@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Dropdown, ButtonComponent } from "component-book";
+import { Dropdown, Button } from "component-book";
 import { dropdownItems } from "../_shared/fixtures.jsx";
 
 export default {
@@ -26,11 +26,9 @@ export default {
           selectedIds={selectedIds}
           onSelect={(item) => setSelectedIds([item.id])}
           trigger={
-            <ButtonComponent
-              label="Open menu"
-              type="secondary"
-              onClick={() => setOpen((o) => !o)}
-            />
+            <Button variant="secondary" onClick={() => setOpen((o) => !o)}>
+              Open menu
+            </Button>
           }
         />
       </div>
