@@ -56,17 +56,16 @@ export const DataTable = {
   },
 };
 
-/** Empty state rendered inside the table shell. */
+/**
+ * Empty state. `NoDataTable` is self-contained — it renders its own table
+ * shell and header from `columns`, so it goes directly inside the container
+ * (not wrapped in another `Table`/`TableHeader`, which would double the header).
+ */
 export const Empty = {
   render: () => (
     <div className="p-4">
       <MainTableContainer isFooter={false}>
-        <Table isFooter={false}>
-          <TableHeader columns={tableColumns} />
-          <TableBody>
-            <NoDataTable columns={tableColumns} message="No deployments yet" />
-          </TableBody>
-        </Table>
+        <NoDataTable columns={tableColumns} message="No deployments yet" />
       </MainTableContainer>
     </div>
   ),
