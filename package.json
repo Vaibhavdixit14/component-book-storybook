@@ -9,7 +9,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "component-book": "github:zujonow/component-book#v0.1.15",
+    "component-book": "github:zujonow/component-book#v0.1.28",
     "lucide-react": "^0.555.0",
     "next": "^16.0.10",
     "react": "^19.2.0",
