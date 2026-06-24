@@ -11,7 +11,7 @@ export default {
   },
   args: {
     href: "https://videosdk.live",
-    children: "Open documentation",
+    children: "View documentation",
     target: "_blank",
   },
   render: (args) => (
