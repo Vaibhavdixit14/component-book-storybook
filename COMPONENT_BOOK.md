@@ -690,6 +690,7 @@ Props:
 - `align` ("start" | "center" | "end"): Default `"start"`.
 - `sideOffset` (number): Default `4`.
 - `check` (boolean): Default `false`. Shows Check icon for selected item.
+- `searchable` (boolean): Default `false`. Adds a search box to filter options by label.
   State:
 - `isOpen`, `isHovered`.
 
