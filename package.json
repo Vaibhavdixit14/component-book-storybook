@@ -10,7 +10,7 @@
     "deploy": "vercel build --prod && vercel deploy --prebuilt --prod"
   },
   "dependencies": {
-    "component-book": "github:zujonow/component-book#v0.1.34",
+    "component-book": "github:zujonow/component-book#v0.1.59",
     "lucide-react": "^0.555.0",
     "next": "^16.0.10",
     "react": "^19.2.0",
