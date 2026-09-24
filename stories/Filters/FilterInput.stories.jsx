@@ -5,7 +5,11 @@ export default {
   title: "Filters/FilterInput",
   component: FilterInput,
   tags: ["autodocs"],
-  argTypes: { label: { control: "text" }, placeholder: { control: "text" } },
+  argTypes: {
+    label: { control: "text" },
+    inputLabel: { control: "text" },
+    placeholder: { control: "text" },
+  },
   args: { label: "Name", placeholder: "Enter value" },
   render: (args) => {
     const [value, setValue] = useState("");
@@ -25,3 +29,7 @@ export default {
 };
 
 export const Default = {};
+
+export const WithInputLabel = {
+  args: { label: "Latency", inputLabel: "Latency", placeholder: "Enter value" },
+};

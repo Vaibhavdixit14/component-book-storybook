@@ -41,9 +41,9 @@ export default function RootLayout({ children }) {
 import { ButtonComponent, InputComponent, toastMessage } from "component-book";
 ```
 
-## Exported components (48)
+## Exported components (50)
 
-ActionConfirmModal, AvatarComponent, ButtonComponent, CheckboxGroupComponent, Chip, Copy, DatePickerDemo, DeprecationNotice, Dropdown, DropdownButton, FilterCalendar, FilterCheckbox, FilterComponent, FilterDateRange, FilterInput, FilterRadio, FilterSelect, FilterValueDropdown, FormLabelComponent, HeaderDetaills, IconButtonComponent, InputComponent, JsonEditor, LabelComponent, ModalComponent, NewBadgeComponent, NoData, Notification, PhoneInput, PlayerComponent, PopoverActionButton, PopoverComponent, RadioGroupCards, RadioGroupComponent, RangeSliderComponent, SectionHeader, SelectCheckbox, SelectComponent, SideBarComponent, SwitchComponent, TabComponent, TagChip, ToogleSwitch, ToogleSwitchItem, ToolTipComponent, TriggerWrapper, VideoPlayer, toastMessage, MainTableContainer, NoDataTable, Table, TableBody, TableFooter, TableHeader, TableRow, SidebarContext, Link, ComponentBookProvider, useComponentBook, theme utilities.
+ActionConfirmModal, AvatarComponent, ButtonComponent, CheckboxGroupCards, CheckboxGroupComponent, Chip, Copy, DatePickerDemo, DeprecationNotice, Dropdown, DropdownButton, FilterCalendar, FilterCheckbox, FilterComponent, FilterDateRange, FilterInput, FilterRadio, FilterSelect, FilterValueDropdown, FormLabelComponent, HeaderDetaills, IconButtonComponent, InputComponent, JsonEditor, LabelComponent, ModalComponent, NewBadgeComponent, NoData, Notification, PhoneInput, PlayerComponent, PopoverActionButton, PopoverComponent, RadioGroupCards, RadioGroupComponent, RangeSliderComponent, SectionHeader, SelectCheckbox, SelectComponent, SideBarComponent, Stepper, SwitchComponent, TabComponent, TagChip, ToogleSwitch, ToogleSwitchItem, ToolTipComponent, TriggerWrapper, VideoPlayer, toastMessage, MainTableContainer, NoDataTable, Table, TableBody, TableFooter, TableHeader, TableRow, TableV2, createSelectColumn, Checkbox, SidebarContext, Link, ComponentBookProvider, useComponentBook, theme utilities.
 
 ---
 
@@ -105,6 +105,33 @@ Props:
 - `className` (string | undefined).
 - `IconClassName` (string | undefined): Additional classes for the icon.
   State: none.
+
+### CheckboxGroupCards
+
+File: `components/v1/CheckboxGroupCards.jsx`
+
+Multi-select counterpart of `RadioGroupCards`: bordered cards with title + optional description and a checkbox on the right.
+
+```jsx
+<CheckboxGroupCards
+  dataArr={[
+    { name: "Recording", value: "recording", description: "Store session recordings" },
+    { name: "Transcription", value: "transcription" },
+  ]}
+  values={selected}
+  onChange={setSelected}
+/>
+```
+
+Props:
+
+- `dataArr` (array): Each item `{ name, value, description?, disabled? }`.
+- `values` (array): Selected values. Default `[]`.
+- `onChange` (function): Receives the full updated array (values as strings).
+- `containerClass` (string): Outer wrapper classes.
+- `className` (string | undefined): Card list classes (default `flex flex-col gap-3`).
+- `cardClassName` (string | undefined): Extra classes on each card.
+  State: none (controlled).
 
 ### CheckboxGroupComponent
 
@@ -224,6 +251,7 @@ Props:
 - `trigger` (node).
 - `items` (array). Each item `{ id, label, value?, badge?, disabled?, icon?, subItems?, subLeftIndicator?, subSelectionMode? }`. `icon` is a Lucide component type, not JSX.
 - `leftIndicator` ("checkbox" | "radio" | "tick" | "none" | "icon"): Default `"none"`. When an item has `icon`, that row uses icon mode with a selection dot.
+- `tickWithIcon` (boolean): Default `false`. For `leftIndicator="tick"`, keeps the item's `icon` on the left and still shows the tick on the right for selected items. Off by default so existing menus are unchanged.
 - `selectionMode` ("single" | "multi"): Default `"single"`.
 - `searchable` (boolean): Default `false`.
 - `maxHeight` (string): Default `"240px"`.
@@ -368,14 +396,16 @@ Props:
 File: `components/v1/FilterInput.jsx`
 Props:
 
-- `value` (string).
+- `value` (string): Single-input mode value.
 - `label` (string).
 - `placeholder` (string): Default `"Enter value"`.
 - `TriggerComponent` (React component).
 - `chipState` / `leftIcon` / `selectedLabel` (any).
-- `onApply` / `onCancel` (function).
+- `onApply` / `onCancel` (function): In single mode `onApply(value: string)`; in multi-field mode `onApply(values: object)` keyed by each field's `key`.
+- `fields` (array, optional): Enables multi-field mode. Each entry `{ key, label, placeholder?, type? }` renders one labeled input (e.g. `[{key:'min',label:'Min'},{key:'max',label:'Max'}]`). Omit for the default single input.
+- `values` (object, optional): Initial values for `fields` mode, keyed by field `key`.
   State:
-- `inputValue`, `open`.
+- `inputValue`, `fieldValues`, `open`.
 
 ### FilterValueDropdown
 
@@ -568,6 +598,8 @@ Props (controlled/uncontrolled):
 - `onSeek` (function | undefined): Called with new time.
 - `onSkipForward` / `onSkipBackward` (function | undefined).
 - `onVolumeChange` (function | undefined).
+- `controlsOnly` (boolean): Default `false`. Renders only the skip/play/skip cluster (no slider, volume, or speed).
+- `compact` (boolean): Default `false`. Shorter box (`h-8`) with `icon-sm` buttons, to sit inline with regular buttons.
   State:
 - Internal playback: `internalCurrentTime`, `internalIsPlaying`.
 - Volume: `volume`, `previousVolume`, `isMuted`.
@@ -623,6 +655,7 @@ Props:
 - `infoIcon` (node | undefined): Shown beside `name`.
 - `containerClass` (string): Default `""`.
 - `radioGridClassname` (string | undefined): Layout classes for the radio list (default `flex flex-col`).
+- `gridGap` (string): Default `"gap-2"`. Gap utility for the radio list; override to change spacing (e.g. `"gap-3"`). Don't also put a `gap-*` in `radioGridClassname` or the two conflict.
 - `nameClassname` (string | undefined): Classes for the label row.
   State: none (uses internal `useId` for unique radio names).
 
@@ -690,6 +723,7 @@ Props:
 - `align` ("start" | "center" | "end"): Default `"start"`.
 - `sideOffset` (number): Default `4`.
 - `check` (boolean): Default `false`. Shows Check icon for selected item.
+- `tickWithIcon` (boolean): Default `false`. With `check`, keeps an option's `icon` on the left and still shows the tick on the right for selected items.
 - `searchable` (boolean): Default `false`. Adds a search box to filter options by label.
   State:
 - `isOpen`, `isHovered`.
@@ -706,6 +740,21 @@ Props:
 - `description` (string | undefined).
 - `footer` (function | undefined): Returns React node.
 - `children` (node).
+  State: none.
+
+### Stepper
+
+File: `components/v1/Stepper.jsx`
+Horizontal numbered stepper. Spreads evenly when the steps fit; switches to
+fixed spacing with a horizontal scrollbar once there are many. Active step and
+the connectors up to it are highlighted white.
+Props:
+
+- `steps` (Array<string | { label?: string }>): one entry per step; the string / `label` is shown under the step number.
+- `activeIndex` (number): the currently selected step (0-based). Default `0`.
+- `onStepChange` (function): `(index) => void`, called when a step is clicked.
+- `scrollThreshold` (number): steps beyond this scroll horizontally. Default `8`.
+- `className` (string | undefined).
   State: none.
 
 ### SwitchComponent
@@ -914,3 +963,110 @@ Props:
 - `message` (string | node | undefined).
   State: none.
 
+## TableV2 (components/v2/TableV2)
+
+One-stop TanStack-powered data table. Pass native TanStack `ColumnDef[]` + row JSON and get the full table — sticky header, styled rows, optional paginated footer. Replaces the manual TableV1 assembly (`MainTableContainer` + `Table` + `TableHeader` + `TableBody` + `TableRow` + `TableFooter`) for new work.
+
+### TableV2
+
+File: `components/v2/TableV2/TableV2.jsx`
+
+```jsx
+import { TableV2, createSelectColumn } from "component-book";
+
+const columns = [
+  createSelectColumn(), // optional checkbox column
+  { accessorKey: "name", header: "Name" },
+  {
+    id: "status",
+    header: "Status",
+    cell: ({ row }) => <Badge>{row.original.status}</Badge>,
+    meta: { align: "right" },
+  },
+];
+
+// Client-side pagination (default, page size 15)
+<TableV2 columns={columns} data={rows} />
+
+// No footer
+<TableV2 columns={columns} data={rows} footer={false} />
+
+// Server-controlled pagination (native TanStack options)
+<TableV2
+  columns={columns}
+  data={pageRows}
+  manualPagination
+  pageCount={totalPages}
+  rowCount={totalRows}
+  state={{ pagination }}
+  onPaginationChange={setPagination}
+/>
+
+// Full control — bring your own instance; TableV2 is renderer-only
+const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel() });
+<TableV2 table={table} />
+```
+
+Presentation props (everything else spreads into `useReactTable`):
+
+- `columns` (ColumnDef[]), `data` (object[]): Native TanStack inputs. Ignored when `table` is passed.
+- `table` (Table instance): Bring-your-own `useReactTable` instance.
+- `footer` (bool, default `true`): Footer bar with pagination, page-size dropdown, and (when selection is enabled) "X of Y row(s) selected."
+- `pageSizeOptions` (number[], default `[10, 15, 25, 50, 100]`).
+- `isLoading` (bool) + `skeletonRows` (number, default 8): Skeleton rows while loading.
+- `emptyState` (node or `{ icon, title, message }`): Zero-row state. Defaults to "No records found".
+- `onRowClick` (`(row) => void`): Row click handler; adds pointer cursor.
+- `className` (string): Extra classes on the outer container.
+
+Height & scrolling: by default the table is normal-flow — it grows to fit its rows and stacks cleanly with other content. To make the body scroll in limited space, give it a **bounded height from the outside** and let it fill that space (header stays pinned, footer stays fixed). No pixel prop, so it adapts to any screen:
+
+```jsx
+// Full-height column: table fills the leftover space as flex-1 and scrolls.
+<div className="flex flex-col h-[calc(100vh-160px)]">
+  <Filters />
+  <TableV2 columns={columns} data={rows} className="flex-1 min-h-0" />
+</div>
+
+// Or a fixed/vh-height wrapper: table fills it with h-full and scrolls.
+<div className="h-[60vh]">
+  <TableV2 columns={columns} data={rows} className="h-full" />
+</div>
+```
+
+The height lives on the consumer's wrapper/layout; the table just fills it via the `className` you pass. Omit that and the table grows to fit all rows. (The root is intentionally NOT `h-full` by default — forcing it breaks stacked tables inside grid/flex page shells.)
+
+Column conventions:
+
+- `meta.align`: `'left' | 'center' | 'right'` cell + header alignment.
+- `meta.headerClassName` / `meta.cellClassName`: extra classes per column.
+- `size`: fixed px width for that column. When EVERY column has a `size`, the table gets `min-width = total` and scrolls horizontally inside its container; otherwise it always fits the container width.
+
+Selection: add `createSelectColumn()` to your columns and set `enableRowSelection` (plus `state.rowSelection` + `onRowSelectionChange` to control it). The footer count reads from the table instance automatically.
+
+Sticky / pinned column: keep a column fixed while the rest scrolls sideways by styling that column via `meta` — `sticky right-0` (or `left-0`) + a SOLID background (so scrolled cells don't show through) + a z-index above the other body cells:
+
+```jsx
+{
+  id: "action",
+  header: "Action",
+  size: 90,
+  meta: {
+    align: "right",
+    headerClassName: "sticky right-0 z-20 bg-new-neutral-900",
+    cellClassName: "sticky right-0 z-10 bg-new-neutral-900 border-l border-new-neutral-800",
+  },
+  cell: () => <RowActions />,
+}
+```
+
+Works because TableV2's horizontal scroll is on the wrapper, so the sticky cell pins to the scroll viewport's edge. Notes: the pinned cell needs an opaque bg (the row hover tint won't show through it); if you also scroll vertically, give the header cell a higher z-index than the body cell so the corner stays correct; pin left with `sticky left-0` instead.
+
+Column resizing: pass `enableColumnResizing`. TableV2 renders a drag handle on each column's right edge and applies the live width from `getSize()`; double-click a handle to reset. Give columns an initial `size`, and constrain the drag with `minSize` / `maxSize` per column (the width is clamped to those bounds; the built-in floor is 20px). Set `enableResizing: false` on a column to lock it, and control the sizes with `state.columnSizing` + `onColumnSizingChange` if you need to persist them. A shared default works via `defaultColumn: { minSize, maxSize }`. (`columnResizeMode` defaults to `"onChange"` for live drag; pass `"onEnd"` to resize only on release.)
+
+TanStack re-exports from the package root: `flexRender`, `createColumnHelper`, `useReactTable`, `getCoreRowModel`, `getPaginationRowModel`, `getSortedRowModel`, `getFilteredRowModel`.
+
+### createSelectColumn
+
+File: `components/v2/TableV2/selectColumn.jsx`
+
+`createSelectColumn(overrides?)` returns a standard TanStack columnDef (`id: "select"`, `size: 40`) rendering header/row checkboxes wired to TanStack's selection APIs. Pass `overrides` to change any columnDef field.
